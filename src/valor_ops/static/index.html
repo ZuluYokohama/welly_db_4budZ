@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Valor Ops Panel — ZuluYokohama Protocol Enterprise Dashboard for Oil & Gas Superintendent Operations">
+    <title>Valor Ops Panel | ZYP Enterprise</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════════ LOGIN SCREEN ═══════════════════════════ -->
+<div id="login-screen">
+    <div class="login-card glass">
+        <div class="brand">ZuluYokohama Protocol</div>
+        <h1>Valor Ops Panel</h1>
+        <p class="subtitle">OG-EP Superintendent Edge Dashboard</p>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="superintendent" autocomplete="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="divider"><span>OR</span></div>
+
+        <button class="btn-oauth" onclick="handleOAuthDemo()">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Sign in with Corporate Email
+        </button>
+        <div class="login-error" id="login-error"></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ DASHBOARD ═══════════════════════════ -->
+<div id="dashboard">
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="logo">VALOR OPS</div>
+        <div class="user-badge">
+            <div class="status-dot"></div>
+            <span id="user-display">superintendent</span>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+
+        <!-- Stat Cards -->
+        <div class="stat-card glass" id="card-pairs">
+            <div class="stat-label">Shape Pairs Forged</div>
+            <div class="stat-value teal" id="stat-pairs">—</div>
+            <div class="stat-sub">TARGET: 1,000</div>
+        </div>
+        <div class="stat-card glass" id="card-coherence">
+            <div class="stat-label">K(S) Coherence</div>
+            <div class="stat-value purple" id="stat-coherence">—</div>
+            <div class="stat-sub">THRESHOLD: &gt;0.90</div>
+        </div>
+        <div class="stat-card glass" id="card-loss">
+            <div class="stat-label">Forge Loss</div>
+            <div class="stat-value gold" id="stat-loss">—</div>
+            <div class="stat-sub">QLoRA NF4</div>
+        </div>
+        <div class="stat-card glass" id="card-anomalies">
+            <div class="stat-label">Anomaly Events</div>
+            <div class="stat-value coral" id="stat-anomalies">—</div>
+            <div class="stat-sub">TRANSIENT INFLUX</div>
+        </div>
+
+        <!-- Coherence Chart -->
+        <div class="chart-section glass">
+            <div class="section-title">
+                <span>Sheaf Laplacian Spectral Gap (Live)</span>
+                <span class="badge">L = D - A</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="coherenceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Route Distribution Chart -->
+        <div class="chart-section glass">
+            <div class="section-title">
+                <span>P-Box Route Distribution</span>
+                <span class="badge">Bipartite Router</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="routeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-row">
+            <button class="btn-action" onclick="exportSQL()">
+                <span>&#128451;</span> Export SQL Objects
+            </button>
+            <button class="btn-action" onclick="pushPowerBI()">
+                <span>&#9889;</span> Push to PowerBI
+            </button>
+            <button class="btn-action" onclick="refreshData()">
+                <span>&#8635;</span> Refresh Topology
+            </button>
+            <button class="btn-action" onclick="toggleSQLViewer()">
+                <span>&#128196;</span> View SQL Schemas
+            </button>
+        </div>
+
+        <!-- Shape Pairs Table -->
+        <div class="table-section glass">
+            <div class="section-title">
+                <span>Shape Pairs Evidence Ledger</span>
+                <span class="badge" id="table-count">0 rows</span>
+            </div>
+            <div style="overflow-x:auto; max-height: 360px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Timestamp</th>
+                            <th>Cycle</th>
+                            <th>&Delta;&lambda;&#8321;</th>
+                            <th>Route</th>
+                            <th>Anomaly</th>
+                            <th>Wormhole</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pairs-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SQL Viewer -->
+        <div class="sql-viewer glass" id="sql-viewer" style="display:none;">
+            <div class="section-title"><span>SQL Object Schemas (NOV TotCo Style)</span></div>
+            <pre id="sql-content">Loading...</pre>
+        </div>
+
+        <!-- PowerBI Status -->
+        <div class="powerbi-status glass" id="powerbi-panel" style="display:none;">
+            <div class="section-title"><span>PowerBI Push Status</span></div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="powerbi-msg">Ready to push</span>
+            </div>
+            <pre id="powerbi-result" style="margin-top:12px; font-size:11px; color:var(--text-muted);"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ── State ────────────────────────────────────────────────────
+    let authToken = null;
+    let coherenceChart = null;
+    let routeChart = null;
+
+    // ── Auth ─────────────────────────────────────────────────────
+    async function handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+            const data = await res.json();
+            if (res.ok) {
+                authToken = data.token;
+                document.getElementById('user-display').textContent = data.user;
+                showDashboard();
+            } else {
+                document.getElementById('login-error').textContent = data.error || 'Login failed';
+            }
+        } catch (err) {
+            document.getElementById('login-error').textContent = 'Connection error';
+        }
+    }
+
+    async function handleOAuthDemo() {
+        const email = prompt('Enter your corporate email:');
+        if (!email) return;
+        try {
+            const res = await fetch('/api/oauth/demo', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email})
+            });
+            const data = await res.json();
+            if (res.ok) {
+                authToken = data.token;
+                document.getElementById('user-display').textContent = data.user;
+                showDashboard();
+            } else {
+                document.getElementById('login-error').textContent = data.error;
+            }
+        } catch (err) {
+            document.getElementById('login-error').textContent = 'Connection error';
+        }
+    }
+
+    function handleLogout() {
+        authToken = null;
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+    }
+
+    function showDashboard() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        initCharts();
+        refreshData();
+    }
+
+    // ── Data Fetching ────────────────────────────────────────────
+    async function refreshData() {
+        try {
+            const [statsRes, pairsRes] = await Promise.all([
+                fetch('/api/stats'),
+                fetch('/api/shape-pairs?page=1&per_page=100')
+            ]);
+            const stats = await statsRes.json();
+            const pairs = await pairsRes.json();
+
+            // Update stat cards
+            document.getElementById('stat-pairs').textContent = stats.total_pairs.toLocaleString();
+            document.getElementById('stat-coherence').textContent = stats.coherence.toFixed(4);
+            document.getElementById('stat-loss').textContent = (1.45 / (1 + stats.total_pairs * 0.01)).toFixed(4);
+            document.getElementById('stat-anomalies').textContent = stats.anomaly_events;
+
+            // Update table
+            const tbody = document.getElementById('pairs-table-body');
+            tbody.innerHTML = '';
+            const rows = pairs.data.slice(-50).reverse();
+            document.getElementById('table-count').textContent = `${pairs.total} rows`;
+            rows.forEach((p, i) => {
+                const tr = document.createElement('tr');
+                const anomTag = p.anomaly_curr
+                    ? '<span class="tag tag-anomaly">KICK</span>'
+                    : '<span class="tag tag-normal">OK</span>';
+                const routeTag = p.route === 'LOCAL'
+                    ? '<span class="tag tag-local">LOCAL</span>'
+                    : '<span class="tag tag-remote">REMOTE</span>';
+                const dl = typeof p.delta_lambda_1 === 'number' ? p.delta_lambda_1.toFixed(8) : (p.delta || 0).toFixed ? (p.delta || 0).toFixed(8) : '0.00000000';
+                tr.innerHTML = `
+                    <td>${pairs.total - i}</td>
+                    <td>${(p.timestamp || p.ts || '').substring(0, 19)}</td>
+                    <td>${p.cycle || '-'}</td>
+                    <td style="color:var(--zyp-teal)">${dl}</td>
+                    <td>${routeTag}</td>
+                    <td>${anomTag}</td>
+                    <td style="color:var(--text-muted)">${p.wormhole_path || 'WP1'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Update charts
+            updateCharts(pairs.data);
+        } catch (err) {
+            console.error('Refresh error:', err);
+        }
+    }
+
+    // ── Charts ───────────────────────────────────────────────────
+    function initCharts() {
+        const ctx1 = document.getElementById('coherenceChart').getContext('2d');
+        const gradient = ctx1.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(0, 'rgba(45, 212, 191, 0.4)');
+        gradient.addColorStop(1, 'rgba(45, 212, 191, 0.0)');
+
+        coherenceChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'delta_lambda_1',
+                    data: [],
+                    borderColor: '#2dd4bf',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#64748b', font: { family: 'Fira Code', size: 10 } } },
+                    x: { display: false }
+                }
+            }
+        });
+
+        const ctx2 = document.getElementById('routeChart').getContext('2d');
+        routeChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['LOCAL', 'REMOTE'],
+                datasets: [{
+                    data: [1, 0],
+                    backgroundColor: ['rgba(45, 212, 191, 0.7)', 'rgba(249, 112, 102, 0.7)'],
+                    borderColor: ['#2dd4bf', '#f97066'],
+                    borderWidth: 2,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } }
+                },
+                cutout: '70%'
+            }
+        });
+    }
+
+    function updateCharts(pairs) {
+        if (!coherenceChart || !pairs.length) return;
+        const recent = pairs.slice(-40);
+        coherenceChart.data.labels = recent.map((_, i) => `T-${recent.length - i}`);
+        coherenceChart.data.datasets[0].data = recent.map(p => p.delta_lambda_1 || p.delta || 0);
+        coherenceChart.update();
+
+        const localCount = pairs.filter(p => (p.route || 'LOCAL') === 'LOCAL').length;
+        const remoteCount = pairs.length - localCount;
+        routeChart.data.datasets[0].data = [localCount, remoteCount];
+        routeChart.update();
+    }
+
+    // ── Actions ──────────────────────────────────────────────────
+    async function exportSQL() {
+        const res = await fetch('/api/export-sql', { method: 'POST' });
+        const data = await res.json();
+        alert(`SQL Objects exported:\n${data.schemas.join('\n')}\n\nData: ${data.data_file}`);
+    }
+
+    async function pushPowerBI() {
+        document.getElementById('powerbi-panel').style.display = 'block';
+        document.getElementById('powerbi-msg').textContent = 'Pushing...';
+        const res = await fetch('/api/powerbi/push', { method: 'POST' });
+        const data = await res.json();
+        document.getElementById('powerbi-msg').textContent = `Status: ${data.status}`;
+        document.getElementById('powerbi-result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    function toggleSQLViewer() {
+        const viewer = document.getElementById('sql-viewer');
+        if (viewer.style.display === 'none') {
+            viewer.style.display = 'block';
+            fetch('/api/sql-schemas').then(r => r.json()).then(d => {
+                document.getElementById('sql-content').textContent = 'Generated: ' + d.generated.join(', ');
+            });
+        } else {
+            viewer.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

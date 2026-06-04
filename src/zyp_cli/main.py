@@ -32,6 +32,13 @@ def main():
     forge_parser = subparsers.add_parser("forge", help="Run the QLoRA Edge Forge to tune local LLMs on harvested shape pairs")
     forge_parser.add_argument("--model", default="C:/LM_STUDIO_MODELS/00.LLM HF MODELS4 CODING-RESEARCH-TESTING-USE-RESEARCH-TESTING-USE-1JUN26", help="Path to local HF models")
 
+    # zyp panel
+    panel_parser = subparsers.add_parser("panel", help="Launch the Valor Ops Panel enterprise dashboard")
+    panel_parser.add_argument("--port", type=int, default=8766, help="Server port")
+
+    # zyp export-sql
+    subparsers.add_parser("export-sql", help="Export all domain objects as .sql files (NOV TotCo style)")
+
     args = parser.parse_args()
     workspace_root = Path(__file__).resolve().parent.parent.parent
 
@@ -73,6 +80,19 @@ def main():
         env = os.environ.copy()
         env["PYTHONPATH"] = str(workspace_root / "src")
         subprocess.run([sys.executable, "src/welly_db/qlora_trainer.py"], cwd=workspace_root, env=env)
+
+    elif args.command == "panel":
+        print(f"Launching Valor Ops Panel on port {args.port}...")
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(workspace_root / "src")
+        env["VALOR_PORT"] = str(args.port)
+        subprocess.run([sys.executable, "src/valor_ops/server.py"], cwd=workspace_root, env=env)
+
+    elif args.command == "export-sql":
+        print("Exporting SQL Objects (NOV TotCo Style)...")
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(workspace_root / "src")
+        subprocess.run([sys.executable, "src/valor_ops/sql_objects.py"], cwd=workspace_root, env=env)
         
     elif args.command == "ui":
         ui_path = workspace_root / "artifacts" / "CodeCube_App.html"
