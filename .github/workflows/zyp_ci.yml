@@ -1,0 +1,49 @@
+name: ZYP AAA Studio CI Gate
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  zyp_review_gate:
+    name: Local Review & Math Invariants
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy scipy
+
+    - name: Install AST-Grep (sg)
+      run: |
+        npm install -g @ast-grep/cli
+
+    - name: Run ZYP Enclosure (cr_local_review)
+      run: |
+        # Make script executable
+        chmod +x cr_local_review.sh
+        # Run the gate (Will exit 1 if K(S) gate fails)
+        bash cr_local_review.sh
+
+    - name: Run Omega Feedback Loop (Distillation Harvester)
+      run: |
+        python scripts/distill_evidence.py
+        
+    - name: Upload Shape Pairs Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: shape-pairs-distillation
+        path: artifacts/shape_pairs.jsonl
+        retention-days: 14
