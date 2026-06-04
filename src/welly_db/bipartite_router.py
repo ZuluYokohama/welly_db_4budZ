@@ -14,6 +14,10 @@ class BipartiteRouter:
     Evaluates topological complexity of prompts/edits to formalize "hesitation".
     Routes computationally tractable tasks to the Local Edge NPU.
     Triggers Zero-VRAM Context Swaps to Remote Oracle for intractable obstructions.
+
+    K(S) Contribution: Preserves spectral gap by routing intractable H2 obstructions
+    to the Remote Oracle, preventing local Laplacian collapse (delta_lambda_1 direction: neutral).
+    ARM64 Memory Bound: O(1) — no matrix allocations in routing logic.
     """
     def __init__(self):
         # Strict geometric thresholds for 6GB UMA Edge execution
@@ -34,6 +38,10 @@ class BipartiteRouter:
         b1 = prompt_signature.get("beta_1", 0)
         proj_dlambda = prompt_signature.get("projected_delta_lambda1", 0.0)
         holonomy = prompt_signature.get("holonomy", "trivial")
+
+        # CR Rule: lambda_1 from topology_basis may be string "N/A" — guard with isinstance
+        if not isinstance(proj_dlambda, (int, float)):
+            proj_dlambda = 0.0
 
         print("\n[P-BOX] Formalizing Hesitation & Computing Intent Topology...")
         print(f"  ├─ Fragmentation (β₀): {b0}")

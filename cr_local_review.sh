@@ -167,7 +167,7 @@ echo ""
 echo "── GATE 5: JSON/JSONL integrity ────────────────────────────────────"
 JSON_FAILS=0
 while IFS= read -r -d '' f; do
-  if ! python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
+  if ! python3 -c "import json; json.load(open('$f', encoding='utf-8'))" 2>/dev/null; then
     log_finding "HALT" "$f" "invalid JSON"
     JSON_FAILS=$((JSON_FAILS+1))
   fi

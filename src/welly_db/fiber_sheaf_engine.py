@@ -12,9 +12,11 @@ ZETA_ZEROS_T = np.array([
 
 def von_mangoldt(n: int) -> float:
     """
-    Computes the Von Mangoldt function Λ(n).
-    Invariant: Λ(p^k) = log(p) for primes p and k >= 1; 0 otherwise.
+    Computes the Von Mangoldt function Lambda(n).
+    Invariant: Lambda(p^k) = log(p) for primes p and k >= 1; 0 otherwise.
     Uses trial division up to sqrt(n).
+    K(S) Contribution: Provides prime weighting for spectral embedding (delta_lambda_1: neutral).
+    ARM64 Memory Bound: O(sqrt(n)) - trial division only, no sieve allocation.
     """
     if n <= 1:
         return 0.0
@@ -76,6 +78,10 @@ class FiberSheafOps:
         """
         Builds the block sheaf Laplacian L_F = D - A.
         Edges should be a list of undirected tuples: (u_idx, v_idx, u_vec, v_vec, coherence_c).
+        CRITICAL: L = D - A, NOT A^T A. Double-counting is prevented by treating edges as undirected.
+        Result is symmetric PSD by construction.
+        K(S) Contribution: Core spectral operator. lambda_1 of L_F is the spectral gap (delta_lambda_1: direct).
+        ARM64 Memory Bound: O(n_nodes^2 * d^2) dense matrix. For n<=17 (AFE size), peak ~8KB.
         """
         size = n_nodes * d
         L = np.zeros((size, size))
