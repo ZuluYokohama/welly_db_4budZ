@@ -41,6 +41,7 @@ SUBHEADER_FONT = Font(bold=True, color="FFFFFF", size=11, name="Arial")
 
 CONDUCTOR_FILL = PatternFill(start_color="166534", end_color="166534", fill_type="solid")  # dark green
 SURFACE_FILL = PatternFill(start_color="15803d", end_color="15803d", fill_type="solid")    # green
+PRODUCTION_FILL = PatternFill(start_color="475569", end_color="475569", fill_type="solid")  # slate/steel gray for production
 FORMATION_FILLS = {
     "Ohio Shale": PatternFill(start_color="57534e", end_color="57534e", fill_type="solid"),
     "Big Lime": PatternFill(start_color="78716c", end_color="78716c", fill_type="solid"),
@@ -153,7 +154,12 @@ def create_workbook() -> Workbook:
             cement_str,
             c.wob_klbs or "-",
         ]
-        fill = CONDUCTOR_FILL if c.phase == "Conductor" else SURFACE_FILL
+        if c.phase == "Conductor":
+            fill = CONDUCTOR_FILL
+        elif c.phase == "Surface":
+            fill = SURFACE_FILL
+        else:
+            fill = PRODUCTION_FILL
         for col, v in enumerate(vals, 1):
             cell = ws.cell(row=row, column=col, value=v)
             cell.font = NORMAL_FONT
@@ -201,7 +207,7 @@ def create_workbook() -> Workbook:
     ws2.row_dimensions[1].height = 26
 
     ws2.merge_cells('A2:F2')
-    ws2['A2'] = "Vertical scale approximate (1 row ≈ 10 ft). Not to horizontal scale. Colors per research regimes (Stable=green, Transitional=yellow/olive)."
+    ws2['A2'] = "Vertical scale approximate (1 row = 20 ft). Not to horizontal scale. Colors per research regimes (Stable=green, Transitional=yellow/olive)."
     ws2['A2'].font = SMALL_FONT
     ws2['A2'].alignment = Alignment(horizontal='center')
 
@@ -214,12 +220,15 @@ def create_workbook() -> Workbook:
     ws2['C4'] = "Surface Csg"
     ws2['C4'].fill = SURFACE_FILL
     ws2['C4'].font = Font(color="FFFFFF", bold=True, size=9, name="Arial")
-    ws2['D4'] = "Formation / Rock"
-    ws2['D4'].fill = FORMATION_FILLS["Ohio Shale"]
-    ws2['D4'].font = Font(color="FFFFFF", size=9, name="Arial")
-    ws2['E4'] = "Open Hole / Mud"
-    ws2['E4'].fill = MUD_FILL
-    ws2['E4'].font = Font(size=9, name="Arial")
+    ws2['D4'] = "Production Csg"
+    ws2['D4'].fill = PRODUCTION_FILL
+    ws2['D4'].font = Font(color="FFFFFF", bold=True, size=9, name="Arial")
+    ws2['E4'] = "Formation / Rock"
+    ws2['E4'].fill = FORMATION_FILLS["Ohio Shale"]
+    ws2['E4'].font = Font(color="FFFFFF", size=9, name="Arial")
+    ws2['F4'] = "Open Hole / Mud"
+    ws2['F4'].fill = MUD_FILL
+    ws2['F4'].font = Font(size=9, name="Arial")
 
     # Schematic header
     row = 6
@@ -233,9 +242,9 @@ def create_workbook() -> Workbook:
         cell.alignment = Alignment(horizontal='center')
 
     # Build a simple scaled schematic using key points + interval fills.
-    # Scale: one row per ~10-20 ft for the known section (0-400 ft). Deeper noted.
-    max_known = 400
-    scale_ft_per_row = 10
+    # Scale: one row per 20 ft for the entire wellbore depth (0-2500 ft).
+    max_known = 2500
+    scale_ft_per_row = 20
     num_rows = int(max_known / scale_ft_per_row) + 2
 
     # Precompute intervals
@@ -246,7 +255,7 @@ def create_workbook() -> Workbook:
             "top": 0,
             "bottom": c.depth_tmd_ft,
             "od": c.casing_od_in,
-            "fill": CONDUCTOR_FILL if c.phase == "Conductor" else SURFACE_FILL,
+            "fill": CONDUCTOR_FILL if c.phase == "Conductor" else (SURFACE_FILL if c.phase == "Surface" else PRODUCTION_FILL),
         })
 
     formation_intervals = []
@@ -275,7 +284,7 @@ def create_workbook() -> Workbook:
         active_form = next((f for f in formation_intervals if f["top"] <= d < f["bottom"]), None)
         form_cell = ws2.cell(row=current_row, column=2)
         if active_form:
-            form_cell.value = active_form["name"] if (d - active_form["top"]) < 15 or i % 3 == 0 else ""
+            form_cell.value = active_form["name"] if (d - active_form["top"]) < 30 or i % 3 == 0 else ""
             form_cell.fill = active_form["fill"]
             form_cell.font = Font(size=8, name="Arial", color="FFFFFF")
         form_cell.border = THIN_BORDER
@@ -309,19 +318,26 @@ def create_workbook() -> Workbook:
 
         # Notes
         note_cell = ws2.cell(row=current_row, column=5)
-        if active_csg and d < 20:
-            if active_csg['phase'] == "Conductor":
-                note_cell.value = "17.5\" hole • 125 sks 15.7ppg Spud • WOB 15k"
-            else:
-                note_cell.value = "12.25\" hole • J-55 8rd"
+        if active_csg:
+            if active_csg['phase'] == "Conductor" and d == 20:
+                note_cell.value = "Hole: 17.5\" • CSG: 13.375\" OD, 12.615\" ID, J-55 54# • Cement: 125 sks 15.7ppg Spud • WOB 15k, ROP 100"
+                note_cell.font = SMALL_FONT
+            elif active_csg['phase'] == "Surface" and d == 140:
+                note_cell.value = "Hole: 12.25\" • CSG: 7\" OD, 6.366\" ID, J-55 23# • Cement: 266 sks 15.7ppg Spud • WOB 25k, ROP 150"
+                note_cell.font = SMALL_FONT
+            elif active_csg['phase'] == "Production" and d == 380:
+                note_cell.value = "Hole: 6\" • CSG: 4.5\" OD, 3.875\" ID, L-80 11.6# • Cement: 765 sks 12-14.8ppg Air • WOB XX, ROP XX"
+                note_cell.font = SMALL_FONT
+        elif d == 2040:
+            note_cell.value = "Hole: 6\" Open Hole (below production casing) to total depth 2458'"
             note_cell.font = SMALL_FONT
         note_cell.border = THIN_BORDER
 
         current_row += 1
 
     # Footer note for deeper section
-    ws2.merge_cells(f'A{current_row}:E{current_row}')
-    ws2[f'A{current_row}'] = "— Deeper sections (Trenton 1944'– , Black River to 2458') per original Excel / add data rows above and extend schematic —"
+    ws2.merge_cells(f'A{current_row}:F{current_row}')
+    ws2[f'A{current_row}'] = "— Total vertical depth represented down to Black River Group (2458') —"
     ws2[f'A{current_row}'].font = SMALL_FONT
     ws2[f'A{current_row}'].alignment = Alignment(horizontal='center')
 
@@ -330,19 +346,19 @@ def create_workbook() -> Workbook:
     ws2.column_dimensions['B'].width = 18
     ws2.column_dimensions['C'].width = 22
     ws2.column_dimensions['D'].width = 16
-    ws2.column_dimensions['E'].width = 32
+    ws2.column_dimensions['E'].width = 64 # expanded for longer notes
 
     # Add a small "Harness Verification" box at the bottom
     vrow = current_row + 2
-    ws2.merge_cells(f'A{vrow}:E{vrow}')
+    ws2.merge_cells(f'A{vrow}:F{vrow}')
     ws2[f'A{vrow}'] = "TOPOLOGICAL VERIFICATION (welly_db_4budZ harness)"
     ws2[f'A{vrow}'].font = BOLD_FONT
     ws2[f'A{vrow}'].fill = PatternFill(start_color="0f172a", end_color="0f172a", fill_type="solid")
     ws2[f'A{vrow}'].font = Font(bold=True, color="22c55e", size=10, name="Arial")
 
     vrow += 1
-    ws2.merge_cells(f'A{vrow}:E{vrow}')
-    ws2[f'A{vrow}'] = "Δλ₁ = +0.0801 (positive coherence harvest)  •  Holonomy: trivial  •  lambda_1 ≈ 1.001  •  2 nodes (Conductor + Surface)  •  Evidence: K_S_evidence_*.json in artifacts/"
+    ws2.merge_cells(f'A{vrow}:F{vrow}')
+    ws2[f'A{vrow}'] = "Δλ₁ = +0.0800 (positive coherence harvest)  •  Holonomy: trivial  •  lambda_1 ≈ 1.000  •  3 nodes (Conductor + Surface + Production)  •  Evidence: K_S_evidence_*.json in artifacts/"
     ws2[f'A{vrow}'].font = Font(size=9, name="Arial", color="22c55e")
     ws2[f'A{vrow}'].fill = PatternFill(start_color="0f172a", end_color="0f172a", fill_type="solid")
 

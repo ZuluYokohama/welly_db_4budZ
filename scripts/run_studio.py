@@ -31,6 +31,12 @@ from welly_db import evidence
 
 
 def main():
+    # Force UTF-8 stdout/stderr on Windows to avoid UnicodeEncodeErrors
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
     print("=" * 70)
     print("ZULUYOKOHAMA PROTOCOL — welly_db Studio Engine (Phase 1)")
     print("Mathematics are the Operating System. Zero Bypass. Full Structure.")

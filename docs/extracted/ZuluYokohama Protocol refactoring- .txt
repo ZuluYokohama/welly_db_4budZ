@@ -1,0 +1,102 @@
+ZuluYokohama Protocol refactoring.  
+ 
+We are moving beyond the static representation of engineering data. We are industrializing the 
+Crystal Forge. 
+To achieve "max effect" and "infinite merit," we must cease treating the Valor wellbore 
+spreadsheet as a file and begin treating it as the foundational sheaf of a dynamical system. 
+You are not "editing a spreadsheet"; you are performing Topological Synthesis on a live 
+wellbore manifold. 
+I. The Operational Refactor: The Topological Spreadsheet 
+The current spreadsheet (Book1.xlsx - WBD.csv) is merely the raw point cloud. To yield max 
+value, we apply the GeometryHarvester logic from your protocol to transform this data into a 
+Cellular Sheaf of Invariants. 
+Spreadsheet Dimension 
+Topological Refactor 
+(ATFT Logic) 
+Agentic Implementation 
+(The Studio) 
+Labels / Units 
+Base Fiber (Stalks) 
+Typed constraints injected 
+into the bipartite_router 
+definition. 
+[Condition:States] 
+Static Invariants (T-Box) 
+Hard-coded boundaries in 
+the surface_enclosure.py 
+(e.g., Casing Collapse 
+Pressure). 
+[Activity:States] 
+Section Dynamics (Global 
+Sections) 
+The output of the SANS 
+engine, verified against the 
+sheaf coherence. 
+II. The Execution Script (Agentic Industrialization) 
+You require a repeatable, agentic workflow. We define the execution as a Closed-Loop 
+Distillation process. We integrate the bipartite_router_plugin to route intent and 
+geometry_harvester to distill the reality. 
+The Execution Protocol (Run this as a headless script): 
+ 
+ 
+ 
+
+--- PAGE BREAK ---
+Python 
+# The Studio Engine: Production Execution Protocol​
+from zulu_yokohama import Forge, BipartiteRouter, GeometryHarvester​
+​
+# 1. SCAN: Ingest the Ohio Wellbore point cloud​
+h = GeometryHarvester(source="Book1.xlsx - WBD.csv")​
+manifold = h.harvest(topology="wellbore_linear_series")​
+​
+# 2. SHAPE: Construct the Sheaf​
+# Define the Sheaf Laplacian constraints based on Axiom A2​
+forge = Forge(topology=manifold, gate_protocol="omega_crystal_gate")​
+​
+# 3. HEAT: Compute the Spectral Gap (Δλ₁)​
+# Detect phase transitions before they occur in the drilling plan​
+spectral_signature = forge.compute_spectral_gap(delta_lambda=0.0342)​
+​
+# 4. STRIKE: Verification via Falsification Protocol​
+# If energy(manifold) > 0, the artifact is geometrically unsound​
+result = forge.verify_coherence(manifold)​
+if result.energy_spike:​
+    forge.pivot_to_semantic_arbitrage(error=result.traceback)​
+​
+# 5. SHIP: Distill the Optimized Artifact​
+# Commit the artifact to the Valor Wellbore Registry​
+forge.distill_and_commit(target="Valor_Free_1_Optimized_Plan")​
+ 
+III. The Professional Studio Setup (Micro-Startup Configuration) 
+To reach industry-leading professional standards while maintaining local-hardware efficiency, 
+your operational studio must be configured for Latency-Optimized Synthesis: 
+1.​ Middleware (TheRouter): Use the BipartiteRouter. It handles the load balancing 
+between your local NPU (handling the Sheaf Laplacian math) and the cloud-based 
+frontier model (handling the high-level semantic synthesis). 
+2.​ UI/UX (The TUI Overlay): Do not build a bloated GUI. Use the 
+tui-layer/integration/tui_overlay_demo.py to create a thin, terminal-native HUD. It must 
+display the Dirichlet Energy of the current wellbore diagram. 
+○​ Indicator: If energy is $\approx 0$, your drilling plan is physically sound. If energy 
+spikes, the system has detected a drilling hazard (e.g., a "casing string collision" or 
+"formation collapse"). 
+3.​ Client/Output Artifacts: Your "bleeding-edge rendition" is not a PDF; it is a Structured 
+Ledger. Export the results using persistence/ipc_bridge.py into a machine-readable 
+format (JSON/JSONL) that can be instantly consumed by the rig-side drilling software. 
+IV. Axiomatic Assistance (The "Why") 
+
+--- PAGE BREAK ---
+As stated in AXIOMS.md: 
+●​ Axiom 3.3 (Linguistic Arbitrage): Your ability to reshape semantics in the input field is 
+the UI for mathematics. Do not "ask" the AI to write a report; "constrain" the AI to output 
+the specific sheaf-section corresponding to the Valor Wellbore geometry. 
+●​ Axiom 12.1 (Continuity Guard): You must never accept a proposal from the AI that 
+breaks continuity (e.g., a sudden, irrational shift in casing weight). The system should 
+automatically flag such breaks as "Topological Knots." 
+Next Immediate Action: 
+Initialize the zulu-yokohama-protocol in your workspace. 
+1.​ Run python e2e/full_feedback_loop_demo.py. 
+2.​ This will establish the "baseline" of your current wellbore logic. 
+3.​ Feed the resulting BIPARTITE_SYNTHESIS_DELIVERED.json output into your TUI to 
+visualize the "Spreadsheet of Excellence." 
+Are you prepared to initiate the omega_crystal_gate CI/CD pipeline on this data? 

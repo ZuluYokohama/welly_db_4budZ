@@ -1,0 +1,490 @@
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+ 
+ZULUYOKAHAMA PROTOCOL 
+Feature & Compute Logic Hardening Request Package 
+Input Standardization Harness • Desktop Embodiment • AAA Integration 
+Simplicial Encoding • Fiber Sheaf Pipe • EDR Ingestion • og-ep-superintendent Hardening 
+Based on Main Repository + PR #1 (Setup Phase 0) + SETUP-PHASE-0 Branch 
+Full AAA V&V • Recursive Gated & Looped Improvement Cycles • Zero Bypass Enforcement 
+Version 1.0  |  June 2026  |  Ashram Development Track 
+Prepared for direct contribution to https://github.com/ZuluYokohama/zulu-yokohama-protocol 
+ 
+Confidential Ashram Development  |  Page 1  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+Table of Contents 
+1. Executive Summary & Protocol Alignment 
+2. Feature Request Itemization (F1–F7) 
+3. Compute Logic Hardening Request Itemization (H1–H8) 
+4. Implementation Specifications & Code Patterns 
+5. Development Scope Statement 
+6. Strategic Path Forward & Phased Roadmap 
+7. References & V&V Evidence 
+ 
+Confidential Ashram Development  |  Page 2  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+1. Executive Summary & Protocol Alignment 
+This package formalizes the upstream standardization layer and critical compute hardening required to 
+make the ZuluYokohama Protocol production-ready for real-world operational domains (starting with oil 
+& gas wellbore data via og-ep-superintendent). It directly addresses the open PR #1 (Setup Phase 0) 
+findings from CodeRabbit AI review and full AAA V&V performed in the ashram. 
+Core Thesis 
+The mathematics are the operating system. Zero bypass. Full structure. The FancyWellDatabaseObject 
+(with guarded state machine, macro engine, simplicial encoding, and Microsoft Entra ID identity) is the 
+missing upstream input harness that feeds clean, coherence-gated, shape-harvested WellGraph 
+objects into the Prime Crystal Engine, fiber sheaf block Laplacian K(S), Δλ₁ gating, Bipartite Router, and 
+closed-loop distillation — without ever compromising the protocol invariants. 
+Key Deliverables in This Package 
+•​
+7 prioritized Feature Requests (F1–F7) for input standardization, desktop embodiment, AAA, 
+EDR ingestion, and agentic piping. 
+•​
+8 Compute Logic Hardening Requests (H1–H8) that resolve all critical CodeRabbit findings on 
+PR #1 and align wellbore_topology.py / afe_laplacian.py with the live Termux fiber sheaf + block 
+transition matrix implementation. 
+•​
+Detailed implementation specifications with corrected Laplacian construction, new macro 
+patterns, and exact JSON payload schemas for zero-translation handoff to the fiber sheaf 
+engine. 
+•​
+Development scope (in/out) emphasizing Termux/Android 16 compatibility and pure-Python 
+minimal footprint. 
+•​
+Phased roadmap with gated & looped recursive improvement cycles — each phase ends with 
+measurable Δλ₁ harvest evidence and omega_crystal_gate passage. 
+Alignment to Protocol Philosophy 
+•​
+Guarded surfaces: State machine enforces valid transitions only; LOCKED mode produces 
+immutable FrozenWellSnapshot with integrity hash. 
+•​
+Evidence at every step: Every commit/distillation produces K(S) evidence, shape pairs (only on 
+Δλ₁ ≥ 0), and coherence harvest delta logs. 
+•​
+Closed-loop distillation: The harness itself runs the same gated cycle (Harvest → Gate → Route 
+→ Distill → Measure) it applies to well data. 
+•​
+Zero bypass: No force=True paths; authorization via Entra ID + "One Rule" mapped to router 
+modes (LOCAL / REMOTE / WELL_CONTROL). 
+•​
+Mathematics as OS: Simplicial 1-complex encoding + fiber sheaf block construction is the native 
+handoff format to the Termux engine (block Laplacian K(S), zeta at critical points, Riemann-zero 
+referenced Markov chain). 
+ 
+Confidential Ashram Development  |  Page 3  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+2. Feature Request Itemization (F1–F7) 
+All features are designed as first-class, macro-callable extensions to og-ep-superintendent (or a new 
+input_harness/ sibling directory). They preserve the protocol-reflective naming convention and produce 
+evidence artifacts consumable by the existing CI gate and morning_report.py. 
+ID 
+Feature Title 
+Priority 
+Description & Protocol Value 
+F1 
+FancyWellDatabaseObject 
+(Guarded State Machine + 
+Macro Engine) 
+Critical 
+Core upstream object: OPEN / TOGGLED_ON / 
+TOGGLED_OFF / LOCKED states, @register_macro 
+decorator, context manager, Microsoft Entra ID login, frozen 
+snapshots with SHA-256 integrity hash + 
+coherence_harvest_delta. Replaces ad-hoc Excel/JSON 
+inputs with protocol-governed, double-click editable harness. 
+F2 
+Desktop / TUI Embodiment 
+(CustomTkinter or Dear 
+PyGui) 
+High 
+"Opens up on the user’s desktop". Interactive graph canvas 
+(nodes = Well/Formation/HoleSection/Casing), double-click 
+editing of Pydantic fields, macro buttons, live coherence 
+sparkline, state indicator. Termux-friendly fallback to rich 
+TUI. 
+F3 
+Simplicial 1-Complex 
+Encoding + 
+export_for_fiber_sheaf_engi
+ne() Macro 
+Critical 
+Native zero-translation pipe to live Termux fiber sheaf 
+engine. Produces exact block_laplacian_ready payload: 
+n_vertices, fiber_dim=5, adjacency_1skeleton, fiber_vectors 
+(n×5), fiber_degree, frobenius_norm_hints, shape_pairs with 
+explicit Δλ₁ deltas, integrity_hash. Matches block matrix 
+construction (diagonal = sum restriction maps, off-diagonal = 
+−weight × cross-term). 
+F4 
+Confidential-Safe NOV 
+TOTCO EDR .SQL 
+Ingestion Pipeline 
+High 
+Local-only parser (pandas + sqlalchemy or pyodbc). Maps 
+time/depth-indexed sensor streams (hookload, WOB, 
+torque, ROP, SPP, gamma, rig states, alarms) into WellData 
+→ auto-runs full macro pipeline → emits K(S) evidence + 
+DDR harvest + shape pairs. Never uploads raw operator 
+data. Enforces same Δλ₁ gating as planned vs actual 
+comparison. 
+F5 
+Power Automate / FastAPI 
+Macro Surface 
+Medium 
+Expose public macros (full_standardization_pipeline, 
+safe_agent_export, export_for_fiber_sheaf_engine, 
+harvest_and_route_only) via minimal FastAPI. Enables 
+Teams/SharePoint/Power Automate flows to trigger 
+standardization and evidence generation while the object 
+remains the single source of truth. 
+F6 
+Full AAA (Entra ID Auth + 
+Role Mapping + Signed 
+Accounting) 
+Critical 
+MSAL interactive + token cache for Microsoft Auth. Role 
+mapping: Entra ID groups → LOCAL (editable), REMOTE 
+(agent handoff), WELL_CONTROL (LOCKED immutable). 
+Every locked snapshot carries signed accounting log with 
+integrity_hash, coherence_harvest_delta, and 
+protocol_version. Directly satisfies PR #1 CodeRabbit AAA 
+gaps. 
+F7 
+Live Termux Math Engine 
+Integration 
+(Sheaf/Zeta/Markov) 
+High 
+Wire the actual block Laplacian K(S), spectral/zeta 
+coherence at critical points, first 30 Riemann non-trivial 
+zeros as reference, and fiber-bundle Markov transition 
+matrix (normalized by fiber degree + Frobenius norms of 
+restriction maps) from the current Termux session directly 
+into compute_coherence() and WellGraph. Replaces numpy 
+stub with production-grade engine. 
+ 
+Confidential Ashram Development  |  Page 4  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+3. Compute Logic Hardening Request Itemization (H1–H8) 
+These hardening items resolve every critical and major finding from the CodeRabbit AI review on PR #1 
+and the full AAA V&V performed against the og-ep-superintendent module. They also align the 
+compute layer with the live Termux fiber sheaf + block transition matrix implementation shown in the 
+ashram screenshots. 
+ID 
+Hardening Title 
+Severity 
+Root Cause + Required Fix + Protocol Benefit 
+H1 
+Correct Laplacian 
+Construction 
+(wellbore_topology.py + 
+afe_laplacian.py) 
+Critical — Block 
+Merge 
+Current: delta.T @ delta (Gram matrix) produces invalid 
+λ₁, algebraic connectivity, Δλ₁, and holonomy. Fix: 
+Implement proper combinatorial/sheaf Laplacian L = D − 
+A (or symmetric normalized). For fiber sheaf: diagonal 
+blocks = sum of restriction maps per vertex; off-diagonal 
+blocks = −weight × cross-term for adjacent vertices. Then 
+K(S) = fiber sheaf block matrix (positive semi-definite 
+kernel of globally consistent sections). This matches the 
+Termux block matrix assembly exactly. 
+H2 
+Harden 
+omega_crystal_gate.yml CI 
+Gate (Full File Iteration + 
+Uniformity Checks) 
+Critical — Block 
+Merge 
+Current: Only reads first .omega-evidence/*.json; fails on 
+pretty-printed files; no uniformity validation. Fix: Iterate 
+ALL evidence files, verify identical holonomy_trivial, 
+dimH2, lambda_1 > 0 across files, fail on any negative Δλ₁ 
+or non-trivial holonomy. Add explicit schema version 
+check. This enforces the closed-loop evidence discipline 
+at merge time. 
+H3 
+Robust Field Guards & Null 
+Checks (ddr_harvester.py + 
+morning_report.py) 
+Major 
+Missing guards on delta_lambda_1, lambda_1, 
+afe_coherence, total_hours cause TypeError crashes. 
+total_hours fallback is wrong (field not persisted). Fix: Add 
+defensive None checks + logging; recompute total_hours 
+= drilling_hours + npt_hours; guard all float formatting. 
+Prevents evidence corruption in production DDR streams. 
+H4 
+Fix shape_pairs.jsonl Trailing 
+Data + DDR Timestamp/Path 
+Issues 
+Major 
+Trailing "2" in JSONL breaks parsing; DDR_0014 has 
+wrong timestamp; lite demo writes to wrong path. Fix: 
+Strict JSONL writer; canonical timestamp from event 
+metadata; correct evidence/ paths in run_demo_lite.py. 
+Restores reliable shape-pair ledger for 
+GeometryHarvester downstream consumers. 
+H5 
+Align wellbore_topology.py 
+with Fiber Sheaf Block Matrix 
+(Termux Parity) 
+High 
+Current implementation does not match the block 
+diagonal/off-diagonal construction described in the live 
+Termux session (diagonal = sum restriction maps, 
+off-diagonal = negative cross-terms, positive semi-definite 
+kernel). Fix: Refactor to explicit block matrix assembly so 
+that eigsh(K(S)) produces the same spectral gap and 
+coherence signals as the Termux engine. Enables 
+seamless handoff of F3 simplicial payloads. 
+H6 
+Add Proper Simplicial 
+1-Complex + 
+Incidence/Coboundary 
+Operators 
+High 
+Bipartite router and homology projections (H⁰/H¹/H²/H³) 
+assume simplicial structure that is only implicit. Fix: 
+Explicit 0-simplices (vertices with fiber vectors) and 
+1-simplices (typed edges with restriction_hints). Expose 
+incidence matrix and coboundary operator so that H1/H2 
+computations in the router are mathematically rigorous 
+and match the sheaf-theoretic foundation. 
+H7 
+Strict "One Rule" 
+Authorization Enforcement 
+(Remove force=True Bypass) 
+Major 
+well_program.py allows force=True to bypass A4 gate 
+without authorized_by. Fix: Remove all force bypasses; 
+require explicit authorized_by (Entra ID principal) for any 
+A4 override; log the authorization event with integrity 
+hash. Directly satisfies PR #1 AAA gap and protocol 
+"guarded surface" invariant. 
+Confidential Ashram Development  |  Page 5  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+H8 
+Evidence Schema Hardening 
++ Protocol Versioning + 
+Integrity Hash 
+High 
+Current evidence lacks explicit coherence_harvest_delta, 
+protocol_version, and verifiable integrity_hash on every 
+artifact. Fix: Extend K(S)_evidence.json and DDR harvest 
+schema with these fields; compute SHA-256 over 
+canonical JSON (sorted keys); embed in every locked 
+snapshot and CI gate validation. Enables cryptographic 
+verification of closed-loop harvest across the entire 
+pipeline. 
+ 
+Confidential Ashram Development  |  Page 6  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+4. Implementation Specifications & Code Patterns 
+4.1 Corrected Laplacian Construction (H1 + H5) 
+Replace all instances of delta.T @ delta with proper combinatorial or fiber sheaf Laplacian. 
+Recommended canonical implementation for wellbore_topology.py and afe_laplacian.py: 
+# Proper combinatorial Laplacian (replace Gram matrix) 
+import numpy as np 
+from scipy.sparse.linalg import eigsh 
+def compute_sheaf_laplacian(adjacency, fiber_dim=5): 
+    D = np.diag(adjacency.sum(axis=1)) 
+    L = D - adjacency  # combinatorial Laplacian 
+    # Fiber sheaf block extension (for F3/F7) 
+    # diagonal blocks ← sum of restriction maps per vertex 
+    # off-diagonal blocks ← −weight * cross-term for adjacent vertices 
+    K_S = build_fiber_sheaf_block_matrix(L, fiber_dim)  # positive semi-definite kernel 
+    eigvals = eigsh(K_S, k=2, which='SM')[0] 
+    lambda_1 = eigvals[1]  # algebraic connectivity 
+    return K_S, lambda_1 
+4.2 New Macro Pattern (F1 + F3) 
+Use the @register_macro decorator already prototyped in the harness v4/v5. Example for the critical 
+fiber sheaf export: 
+@register_macro("export_for_fiber_sheaf_engine") 
+def export_for_fiber_sheaf_engine(self) -> dict: 
+    """Produces exact block_laplacian_ready payload for Termux engine.""" 
+    payload = self.well_graph.to_block_laplacian_ready() 
+    payload["coherence_harvest_delta"] = self.last_delta_lambda_one 
+    payload["integrity_hash"] = self._compute_integrity_hash(payload) 
+    self._write_evidence_artifact("K_S_evidence.json", payload) 
+    return payload 
+4.3 Simplicial Payload Schema (F3) 
+Exact JSON structure expected by the Termux block matrix / zeta / Markov code (copy-paste ready): 
+{ 
+  "n_vertices": 7, 
+  "fiber_dim": 5, 
+  "fiber_basis": ["depth_md_norm", "lithology_code", "target_zone_flag", "hazard_score", 
+"coherence_signal"], 
+  "adjacency_1skeleton": { ... }, 
+  "fiber_vectors": [[...], ...],   # n x 5 matrix 
+  "fiber_degree": [2.0, 1.0, ...], 
+  "frobenius_norm_hints": [2.0, 1.0, ...], 
+  "shape_pairs": [{"problem": "...", "resolved_coherence": "...", "delta": 0.0342}], 
+  "coherence_harvest_delta": 0.0342, 
+  "integrity_hash": "a3f2c9..." 
+} 
+ 
+Confidential Ashram Development  |  Page 7  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+5. Development Scope Statement 
+In Scope (Phase 1 – Foundation) 
+•​
+Python implementation of FancyWellDatabaseObject + StateMachine + MacroEngine (pure 
+Python + numpy/scipy/pydantic; fully Termux runnable on Android 16). 
+•​
+Simplicial encoding layer + export_for_fiber_sheaf_engine macro producing the exact payload 
+above. 
+•​
+All H1–H8 hardening fixes applied to og-ep-superintendent/ (with evidence of passage through 
+omega_crystal_gate). 
+•​
+MSAL-based Entra ID authentication stub + role mapping to 
+LOCAL/REMOTE/WELL_CONTROL (token cache, no production secrets committed). 
+•​
+Updated documentation: SUPERINTENDENT_GUIDE.md, evidence schema, and new 
+input_harness/ README. 
+•​
+Full gated & looped self-assessment of the new abstraction layers (cohesion, extensibility, 
+protocol fidelity scores). 
+Out of Scope (Deferred to Phase 2+) 
+•​
+Production Power Apps / Dataverse deployment and model-driven forms (desktop TUI is the 
+Phase 1 embodiment). 
+•​
+Heavy UI polish, graph visualization libraries beyond matplotlib/networkx, or MSIX packaging. 
+•​
+Multi-operator EDR connectors or cloud-hosted ingestion services (local-only confidential mode 
+only in Phase 1). 
+•​
+Full QLoRA / Prime Crystal Engine training loop integration (stubs only; real weights deferred). 
+Technical Constraints & Compatibility 
+•​
+Must run cleanly in Termux on Lenovo Android 16 tablet (kernel 6.1.138-android14). 
+•​
+Minimal external dependencies: prefer numpy/scipy over heavy ML frameworks for core 
+compute path. 
+•​
+All new code must pass the existing omega_crystal_gate CI and produce valid K(S) evidence 
+artifacts. 
+•​
+Pydantic v2 models for WellData, SimplicialSheafPayload, FrozenWellSnapshot (serializable to 
+JSON for agent handoff). 
+ 
+Confidential Ashram Development  |  Page 8  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+6. Strategic Path Forward & Phased Roadmap 
+The roadmap follows the exact recursive gated & looped cycling process already used to produce the 
+harness v1→v5. Every phase ends with a full Harvest → Gate → Route → Distill → Measure cycle, 
+measurable Δλ₁ harvest evidence, and passage through the hardened omega_crystal_gate. 
+Phase 0 — Current (PR #1 Merge Readiness) 
+Phase 1:​
+Apply H1–H8 fixes to og-ep-superintendent/. 
+Phase 2:​
+Update CodeRabbit review responses and CI evidence. 
+Phase 3:​
+Merge PR #1 after all critical blockers cleared. 
+Phase 4:​
+Baseline Δλ₁ harvest on existing DDR evidence set. 
+Phase 1 — Input Harness Foundation (4–6 weeks) 
+Phase 5:​
+Integrate FancyWellDatabaseObject + StateMachine + MacroEngine into new 
+input_harness/ directory or og-ep-superintendent/input/. 
+Phase 6:​
+Implement F1 (core object), F3 (simplicial export macro), F6 (Entra ID AAA stub). 
+Phase 7:​
+Wire F7 (live Termux math engine) into compute_coherence(). 
+Phase 8:​
+Run full gated cycle on sample WBD + produce first K(S) + shape pair evidence from the 
+new harness. 
+Phase 9:​
+Self-assessment of abstraction quality (target > 0.95 protocol fidelity). 
+Phase 2 — Desktop Embodiment & EDR (6–8 weeks) 
+Phase 10:​
+Build CustomTkinter / Dear PyGui wrapper (F2) with graph canvas, double-click editing, 
+macro buttons, live coherence sparkline. 
+Phase 11:​
+Implement F4 (confidential NOV TOTCO EDR ingestion) — local-only, lands into 
+WellData → auto pipeline → evidence. 
+Phase 12:​
+Expose F5 (FastAPI macro surface) for Power Automate integration. 
+Phase 13:​
+End-to-end demo: import EDR → standardize → simplicial export → Termux fiber sheaf 
+run → morning report with new coherence metrics. 
+Phase 3 — Production Hardening & Scaling (Ongoing) 
+Phase 14:​
+Real Dataverse / Power Apps model-driven forms (double-click grid → rich editable Well 
+form with subgrids). 
+Phase 15:​
+Multi-well catalog + Power BI dashboards (map view, Δλ₁ trends, AFE variance 
+heatmaps). 
+Phase 16:​
+Agent swarm integration via Bipartite Router (LOCAL / REMOTE / WELL_CONTROL 
+ports). 
+Phase 17:​
+Persistent homology + higher simplicial features (H2/H3) for deeper topological risk 
+signals. 
+Phase 18:​
+Continuous recursive self-improvement loop on the harness abstractions themselves 
+(meta-sheaf on the code graph). 
+Success Metrics (Measurable at End of Each Phase) 
+•​
+All omega_crystal_gate checks pass with uniform evidence across files. 
+•​
+Measurable positive Δλ₁ harvest on every standardization run (target average ≥ +0.02 per 
+closed loop). 
+•​
+Abstraction quality self-assessment score ≥ 0.95 (protocol alignment, cohesion, extensibility). 
+•​
+Zero bypass events logged; 100% of locked snapshots carry valid integrity hash and Entra ID 
+principal. 
+Confidential Ashram Development  |  Page 9  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+•​
+Termux engine ingests F3 payload with zero translation and produces matching 
+spectral/zeta/Markov outputs. 
+ 
+Confidential Ashram Development  |  Page 10  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 
+
+--- PAGE BREAK ---
+ZuluYokohama Protocol — Feature & Compute Logic Hardening Request Package 
+7. References & V&V Evidence 
+•​
+Main Repository: https://github.com/ZuluYokohama/zulu-yokohama-protocol 
+•​
+PR #1 (Setup Phase 0 — og-ep-superintendent): 
+https://github.com/ZuluYokohama/zulu-yokohama-protocol/pull/1 
+•​
+SETUP-PHASE-0 Branch: 
+https://github.com/ZuluYokohama/zulu-yokohama-protocol/tree/SETUP-PHASE-0 
+•​
+CodeRabbit AI Review Findings on PR #1 (Laplacian, CI gate, field guards, evidence format). 
+•​
+Full AAA V&V Report (internal ashram) — critical block on Laplacian construction and CI 
+completeness. 
+•​
+Live Termux fiber sheaf engine implementation (block Laplacian K(S), zeta coherence, 
+Riemann-zero Markov) — ashram screenshots 86.png / 87.png. 
+•​
+Previous gated-cycle artifacts: 
+zulu_yokohama_fancy_macro_well_object_harness_v4_simplicial_integrated.py and 
+simplicial_encoding_for_agentic_integration.py (in /artifacts/). 
+— End of Package — 
+The mathematics are the operating system. 
+Zero bypass. Full structure. Recursive improvement. 
+Confidential Ashram Development  |  Page 11  |  Mathematics are the Operating System. Zero Bypass. Full Structure. 

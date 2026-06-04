@@ -207,10 +207,11 @@
                 this.init();
             }
             init() {
-                // Seed with research data (Valor Free #1 Conductor + Surface)
+                // Seed with research data (Valor Free #1 Conductor + Surface + Production)
                 this.db = [
                     { category: "Conductor", tmd: 114, od: 13.375, regime: "Stable" },
-                    { category: "Surface", tmd: 359, od: 13.375, regime: "Transitional" }
+                    { category: "Surface", tmd: 359, od: 7.0, regime: "Transitional" },
+                    { category: "Production", tmd: 2000, od: 4.5, regime: "Stable" }
                 ];
                 this.renderMesh();
                 this.renderWellbore();

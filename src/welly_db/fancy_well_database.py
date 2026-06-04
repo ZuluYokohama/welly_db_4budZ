@@ -221,7 +221,7 @@ class FancyWellDatabaseObject:
 
     # --- Internals ---
     def _seed_from_research_data(self):
-        """Seed the A-Box with the exact research values (Conductor + Surface)."""
+        """Seed the A-Box with the exact research values (Conductor + Surface + Production)."""
         # Conductor
         c = CASING_STRINGS[0]
         self.add_entity(
@@ -229,9 +229,9 @@ class FancyWellDatabaseObject:
             tmd_ft=c.depth_tmd_ft,
             od_in=c.casing_od_in,
             regime=Regime.STABLE,
-            formation_top=FORMATIONS[0].top_md_ft,
-            formation_bottom=FORMATIONS[0].bottom_md_ft,
-            notes="Spud Mud 15.7ppg, 125 sks, WOB 15k",
+            formation_top=0.0,
+            formation_bottom=c.depth_tmd_ft,
+            notes="Spud Mud 15.7ppg, 125 sks, WOB 15k, ROP 100",
         )
         # Surface
         s = CASING_STRINGS[1]
@@ -240,9 +240,20 @@ class FancyWellDatabaseObject:
             tmd_ft=s.depth_tmd_ft,
             od_in=s.casing_od_in,
             regime=Regime.TRANSITIONAL,
-            formation_top=FORMATIONS[0].bottom_md_ft,
-            formation_bottom=FORMATIONS[1].bottom_md_ft,
-            notes=f"ID {s.casing_id_in}\" J-55/8rd",
+            formation_top=FORMATIONS[0].top_md_ft, # Ohio Shale top
+            formation_bottom=FORMATIONS[1].top_md_ft, # Big Lime top
+            notes=f"ID {s.casing_id_in}\" J-55/8rd, WOB 25k, ROP 150",
+        )
+        # Production
+        p = CASING_STRINGS[2]
+        self.add_entity(
+            category="Production",
+            tmd_ft=p.depth_tmd_ft,
+            od_in=p.casing_od_in,
+            regime=Regime.STABLE,
+            formation_top=FORMATIONS[3].top_md_ft, # Trenton top
+            formation_bottom=FORMATIONS[4].bottom_md_ft, # Black River bottom
+            notes=f"ID {p.casing_id_in}\" L-80/8rd, Air Drill",
         )
 
     def _create_frozen_snapshot(self, authorized_by: str) -> FrozenWellSnapshot:

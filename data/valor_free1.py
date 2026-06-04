@@ -46,32 +46,49 @@ FORMATIONS: List[Formation] = [
     Formation(name="Black River Group", top_md_ft=2114.0, bottom_md_ft=2458.0),
 ]
 
-# === MECHANICAL CASING / HOLE (Table 2, reconstructed from text + tables) ===
+# === MECHANICAL CASING / HOLE (Table 2, reconstructed from WBD sheet) ===
 CASING_STRINGS: List[CasingString] = [
     CasingString(
         phase="Conductor",
         hole_diam_in=17.5,
         casing_od_in=13.375,
-        casing_id_in=None,
+        casing_id_in=12.615, # J-55 54# has 12.615 CSG ID
         weight_lb_per_ft=54.0,
-        grade_conn="-",
+        grade_conn="J-55 / 8rd",
         depth_tmd_ft=114.0,
         depth_tvd_ft=114.0,
         cement_sks=125.0,
         cement_ppg=15.7,
-        cement_type="Spud Mud (Lead/Tail)",
+        cement_type="Spud Mud",
         wob_klbs=15.0,
     ),
     CasingString(
         phase="Surface",
         hole_diam_in=12.25,
-        casing_od_in=13.375,
-        casing_id_in=12.615,
-        weight_lb_per_ft=54.0,
+        casing_od_in=7.0,
+        casing_id_in=6.366, # J-55 23# has 6.366 CSG ID
+        weight_lb_per_ft=23.0,
         grade_conn="J-55 / 8rd",
         depth_tmd_ft=359.0,
         depth_tvd_ft=359.0,
-        # cement details partial in source; surface typically to surface or as logged
+        cement_sks=266.0,
+        cement_ppg=15.7,
+        cement_type="Spud Mud",
+        wob_klbs=25.0,
+    ),
+    CasingString(
+        phase="Production",
+        hole_diam_in=6.0,
+        casing_od_in=4.5,
+        casing_id_in=3.875, # L-80 11.6# has 3.875 CSG ID
+        weight_lb_per_ft=11.6,
+        grade_conn="L-80 / 8rd",
+        depth_tmd_ft=2000.0,
+        depth_tvd_ft=2000.0,
+        cement_sks=765.0,
+        cement_ppg=14.8, # Tail is 14.8, Lead is 12
+        cement_type="Air Drill",
+        wob_klbs=None, # XX in sheet
     ),
 ]
 

@@ -1,0 +1,51 @@
+,Unnamed: 1,Unnamed: 2,"VALOR ENERGY PARTNERS, INC.",Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14
+,,,Lease,Free,,API #,34-141-2-0059-00-00,,NAD 27,X,Y,Lattitude,,Longitude
+,,,Well #,#1,,Permit #,PR2026032400122,,SHL,1784422,498592,39.3664747,,-83.2625135
+,,,State,Ohio,,Section,V.M.S 2309,,,,,,,
+,,,County,Ross,,GL:,906',,Trenton Limestone,,1944' MD,,,
+,,,Township,Busckskin,,KB Height,8',,Black River Group,,2114' MD,,,
+,,,,,,,,,,,,,,
+,,,,,,,,"Conductor Pipe: 13.375"", 54 lb/ft, 114'",,,,,,
+Formation,,Top,Bottom,,,,,Wellbore,,Cement,,,Notes,
+Ohio Shale,,130,268,,,,Conductor,Hole dia,"17.5""",,Lead,Tail,"Spud Mud
+Cement to surface
+Target WOB 15k
+Target ROP 100
+Hazards
+Clean up cycles",
+Big Lime,,268,716,,,,,TMD,114',Weight,15.7 ppg,,,
+Packer Shell,,800,828,114',,,,TVD,114',SKS,125,,,
+Trenton Limestone,,1944,2114,,,,,CSG OD,"13.375""",TOC,0',,,
+Black River Group,,2114,2458,,,,,CSG WT,54#,XS,,,,
+,,,,,,,,Grade,J-55,,,,,
+,,,,,,,,Conn,8rd,,,,,
+,,,,,,,,CSG ID,12.615,,,,,
+,,,,,,,Surface,Hole dia,12.25,,Lead,Tail,"Spud Mud
+Cement to surface
+Target WOB 25k
+Target ROP 150
+Hazards
+Clean up cycles",
+,,,,,,,,TMD,359',Weight,15.7 ppg,,,
+,,,,359',,,,TVD,359',SKS,266,,,
+,,,,,,,,CSG OD,"7""",TOC,0',200,,
+,,,,,,,,CSG WT,23#,XS,1,1.25,,
+,,,,,,,,Grade,J-55,,,,,
+,,,,,,,,Conn,8rd,,,,,
+,,,,,,,,CSG ID,"6.366""",,,,,
+,,,,,,,Production,Hole dia,"6""",,Lead,Tail,"Air Drill
+Cement to surface
+Target WOB XXk
+Target ROP XX
+Hazards
+Clean up cycles",
+,,,,,,,,TMD,2000',Weight,12 ppg,14.8 ppg,,
+,,,,,,,,TVD,2000',SKS,765,,,
+,,,,,,,,CSG OD,"4.5""",TOC,0',200',,
+,,,,,,,,CSG WT,11.6#,XS,1,1.25,,
+,,,,,,,,Grade,L-80,,,,,
+,,,,,,,,Conn,8rd,,,,,
+,,,,,,,,CSG ID,"3.875""",,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,2000',,,,,,,,,,
