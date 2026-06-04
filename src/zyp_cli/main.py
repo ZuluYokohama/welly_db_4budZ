@@ -28,6 +28,10 @@ def main():
     # zyp ai-review
     subparsers.add_parser("ai-review", help="Execute local In-IDE AI Security Review via CodeRabbit CLI")
 
+    # zyp forge
+    forge_parser = subparsers.add_parser("forge", help="Run the QLoRA Edge Forge to tune local LLMs on harvested shape pairs")
+    forge_parser.add_argument("--model", default="C:/LM_STUDIO_MODELS/00.LLM HF MODELS4 CODING-RESEARCH-TESTING-USE-RESEARCH-TESTING-USE-1JUN26", help="Path to local HF models")
+
     args = parser.parse_args()
     workspace_root = Path(__file__).resolve().parent.parent.parent
 
@@ -64,6 +68,12 @@ def main():
         except subprocess.CalledProcessError:
             print("  [!] Local AI Review Failed. Check the diff and coderabbit.yaml rules.")
             
+    elif args.command == "forge":
+        print("Igniting the QLoRA Edge Forge...")
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(workspace_root / "src")
+        subprocess.run([sys.executable, "src/welly_db/qlora_trainer.py"], cwd=workspace_root, env=env)
+        
     elif args.command == "ui":
         ui_path = workspace_root / "artifacts" / "CodeCube_App.html"
         print(f"Launching CodeCube Interface: {ui_path}")
