@@ -1,0 +1,10 @@
+# Minimal dependencies for ZuluYokohama Protocol welly_db input harness (Termux/Android 16 + edge UMA compatible)
+# Prefer numpy/scipy over heavy ML. Pydantic v2 for models.
+pydantic>=2.7,<3
+numpy>=1.26
+scipy>=1.13
+# Optional for TUI / viz (rich is pure python, good for Termux)
+rich>=13.7
+# For future EDR .sql or local DB: sqlalchemy or pyodbc would go here but out of Phase 1 scope
+# matplotlib for optional local plots (not required for core)
+# No torch, no transformers on the critical path.

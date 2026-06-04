@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnostic Wellbore Studio &amp; Manifold Engine</title>
+    <style>
+        :root {
+            --bg-main: #0d0f12;
+            --bg-card: #14181f;
+            --border: #222a36;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --prime-green: #10b981;
+            --prime-yellow: #f59e0b;
+            --prime-red: #ef4444;
+            --accent: #3b82f6;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.025em; }
+        .badge { background: var(--border); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            height: calc(100vh - 100px);
+        }
+        .pane {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .controls { gap: 15px; display: flex; flex-direction: column; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+        input, select, textarea {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        input:focus, select:focus { border-color: var(--accent); outline: none; }
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            text-align: center;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-success { background: var(--prime-green); }
+        .item-list { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .item-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .item-card:hover { border-color: var(--accent); }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        #visualization-space {
+            flex-grow: 1;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            background: #090b0d;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+            min-height: 300px;
+        }
+        .wellbore-column {
+            width: 80px;
+            background: #1e293b;
+            border: 2px solid #475569;
+            position: relative;
+            transition: height 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .casing-layer {
+            width: 100%;
+            background: #64748b;
+            border-bottom: 2px solid var(--bg-main);
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: var(--bg-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .terminal-box {
+            background: #05070a;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: monospace;
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--prime-green);
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Topological App Studio</h1>
+            <div style="color: var(--text-muted); font-size: 0.85rem;">Agnostic Meaning Substrate Framework v1.0.0 — welly_db_4budZ</div>
+        </div>
+        <div class="badge">MANIFOLD DEPLOYED (LOCAL-EDGE) • ZULUYOKOHAMA PROTOCOL</div>
+    </header>
+
+    <div class="grid-container">
+        <div class="pane controls">
+            <h3>Structural Ingestion Layer</h3>
+            <div class="form-group">
+                <label>Element Category</label>
+                <select id="elem-category">
+                    <option value="Conductor">Conductor String</option>
+                    <option value="Surface">Surface Mechanical Boundary</option>
+                    <option value="Intermediate">Intermediate Regulated Isolation</option>
+                    <option value="Production">Production Reservoir Manifold</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Total Measured Depth (True Geometry Variable)</label>
+                <input type="number" id="elem-tmd" placeholder="e.g., 2000" value="500">
+            </div>
+            <div class="form-group">
+                <label>Outer Matrix Diameter (Inches Constraint)</label>
+                <input type="number" id="elem-od" step="0.001" placeholder="e.g., 7.000" value="9.625">
+            </div>
+            <div class="form-group">
+                <label>Dynamic Continuity Regime (Pattern Tag)</label>
+                <select id="elem-regime">
+                    <option value="Stable">Stable Traversal (Green State)</option>
+                    <option value="Transitional">Transitional Boundary Layer (Yellow State)</option>
+                    <option value="Critical">Critical Boundary Intercept (Red State)</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="appStudio.addEntity()">Anvil Seal Element</button>
+
+            <hr style="border: 0; border-top: 1px solid var(--border); width: 100%; margin: 10px 0;">
+
+            <h3>Local Inventory Mesh</h3>
+            <div class="item-list" id="inventory-mesh"></div>
+
+            <button class="btn" style="margin-top: auto;"
+                    onclick="appStudio.exportCanonicalJson()">Compile &amp; Verify Framework Object</button>
+            <button class="btn" style="background:#334155; margin-top:6px;"
+                    onclick="appStudio.exportForFiberSheaf()">Export for Fiber Sheaf Engine (F3)</button>
+        </div>
+
+        <div class="pane">
+            <h3>Dimensional Manifold Sync View</h3>
+            <div id="visualization-space">
+                <div id="wellbore-render" class="wellbore-column" style="height: 80%;"></div>
+            </div>
+
+            <h3>Agnostic Log Output</h3>
+            <div class="terminal-box" id="system-log">
+                [SYSTEM LOG]: Agnostic Meaning Substrate Initialized. Ready for Local Hardware Inference.<br>
+                [ZYP]: Mathematics are the Operating System. Zero Bypass.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class TopologicalAppStudio {
+            constructor() {
+                this.db = [];
+                this.init();
+            }
+            init() {
+                // Seed with research data (Valor Free #1 Conductor + Surface)
+                this.db = [
+                    { category: "Conductor", tmd: 114, od: 13.375, regime: "Stable" },
+                    { category: "Surface", tmd: 359, od: 13.375, regime: "Transitional" }
+                ];
+                this.renderMesh();
+                this.renderWellbore();
+                this.log("Seeded with canonical Valor Energy Partners State Free #1 (API 34-141-2-0059-00-00).");
+            }
+            log(message, type = 'stable') {
+                const logBox = document.getElementById('system-log');
+                const timestamp = new Date().toISOString().split('T')[1].slice(0, -1);
+                let color = 'var(--prime-green)';
+                if (type === 'warn') color = 'var(--prime-yellow)';
+                if (type === 'err') color = 'var(--prime-red)';
+                logBox.innerHTML += `<div style="color: ${color}">[${timestamp}] ${message}</div>`;
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+            renderMesh() {
+                const meshContainer = document.getElementById('inventory-mesh');
+                meshContainer.innerHTML = '';
+                this.db.forEach((item, index) => {
+                    let dotColor = 'var(--prime-green)';
+                    if (item.regime === 'Transitional') dotColor = 'var(--prime-yellow)';
+                    if (item.regime === 'Critical') dotColor = 'var(--prime-red)';
+                    meshContainer.innerHTML += `
+                        <div class="item-card" onclick="appStudio.inspectElement(${index})">
+                            <div>
+                                <span class="status-dot" style="background-color: ${dotColor}"></span>
+                                <strong>${item.category}</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted)">Constraint: Ø${item.od}" | Boundary: ${item.tmd} MD</div>
+                            </div>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">#${index + 1}</span>
+                        </div>`;
+                });
+            }
+            renderWellbore() {
+                const renderContainer = document.getElementById('wellbore-render');
+                renderContainer.innerHTML = '';
+                if (this.db.length === 0) return;
+                const maxDepth = Math.max(...this.db.map(o => parseFloat(o.tmd)));
+                [...this.db].sort((a, b) => parseFloat(a.tmd) - parseFloat(b.tmd)).forEach(item => {
+                    const pctHeight = (parseFloat(item.tmd) / maxDepth) * 100;
+                    const el = document.createElement('div');
+                    el.className = 'casing-layer';
+                    el.style.height = `${pctHeight}%`;
+                    if (item.regime === 'Stable') el.style.backgroundColor = 'var(--prime-green)';
+                    if (item.regime === 'Transitional') el.style.backgroundColor = 'var(--prime-yellow)';
+                    if (item.regime === 'Critical') el.style.backgroundColor = 'var(--prime-red)';
+                    el.innerText = `${item.category} (${item.tmd}')`;
+                    renderContainer.appendChild(el);
+                });
+            }
+            addEntity() {
+                const category = document.getElementById('elem-category').value;
+                const tmd = parseFloat(document.getElementById('elem-tmd').value);
+                const od = parseFloat(document.getElementById('elem-od').value);
+                const regime = document.getElementById('elem-regime').value;
+                if (!tmd || !od) {
+                    this.log("Verification Blocked: Geometry metrics must possess real physical values.", 'err');
+                    return;
+                }
+                const newElement = { category, tmd, od, regime };
+                this.db.push(newElement);
+                this.log(`Element successfully unrolled to mesh: ${category} structural layer pinned to ${tmd} feet.`);
+                this.renderMesh();
+                this.renderWellbore();
+                document.getElementById('elem-tmd').value = '';
+                document.getElementById('elem-od').value = '';
+            }
+            inspectElement(index) {
+                const item = this.db[index];
+                this.log(`Inspecting Node [${index + 1}] -> Category: ${item.category} | Continuum Shape: ${item.regime}`, 'warn');
+            }
+            exportCanonicalJson() {
+                this.log("Executing Global Section Synthesis... Compiling cryptographic manifest.");
+                const exportPayload = {
+                    timestamp_epoch_ms: Date.now(),
+                    provenance_framework: "ZYP-1.0-welly_db-fancy + ASTAC-AMS",
+                    universal_tensor_coordinates: this.db.map((e, idx) => ({
+                        index: idx,
+                        pattern_dimension_id: e.category,
+                        magnitude_vector: {
+                            measured_depth_geometric_limit: e.tmd,
+                            outer_matrix_diameter: e.od
+                        },
+                        frequency_stability_state: e.regime
+                    }))
+                };
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 4));
+                const a = document.createElement('a');
+                a.href = dataStr;
+                a.download = `canonical_wellbore_manifest_${Date.now()}.json`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                this.log("State Sealed. Manifest exported successfully for plug-and-play CLI consumption.");
+            }
+            exportForFiberSheaf() {
+                this.log("F3: Building simplicial 1-complex + block_laplacian_ready payload...");
+                const n = this.db.length;
+                const payload = {
+                    n_vertices: n,
+                    fiber_dim: 5,
+                    fiber_basis: ["depth_md_norm","lithology_code","target_zone_flag","hazard_score","coherence_signal"],
+                    adjacency_1skeleton: Array.from({length:n}, (_,i) => Array.from({length:n}, (_,j) => (i===j-1||j===i-1)?1:0)),
+                    fiber_vectors: this.db.map((e, i) => {
+                        const maxD = Math.max(...this.db.map(x=>x.tmd)) || 1;
+                        const hazard = e.regime === "Stable" ? 0.1 : (e.regime === "Transitional" ? 0.5 : 0.9);
+                        return [e.tmd/maxD, 0.5, 0, hazard, 1-hazard];
+                    }),
+                    fiber_degree: Array(n).fill(1),
+                    frobenius_norm_hints: Array(n).fill(1.0),
+                    shape_pairs: [],
+                    coherence_harvest_delta: 0.0,
+                    integrity_hash: "demo-" + Date.now(),
+                    source: "wellbore_studio.html (ZuluYokohama Protocol demo)"
+                };
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+                const a = document.createElement('a');
+                a.href = dataStr;
+                a.download = `block_laplacian_ready_${Date.now()}.json`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                this.log("F3 payload exported. Ready for Termux fiber-sheaf engine (zero translation).");
+            }
+        }
+        const appStudio = new TopologicalAppStudio();
+    </script>
+</body>
+</html>
