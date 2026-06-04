@@ -155,3 +155,6 @@ Thumbs.db
 # Project specific
 artifacts/*.tmp
 artifacts/run_*/
+
+# Agent session logs (not for source control)
+agent-session-io/
