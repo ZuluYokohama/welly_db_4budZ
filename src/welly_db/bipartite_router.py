@@ -1,6 +1,10 @@
+import sys
 import json
 import logging
 from typing import Dict, Any
+
+# Fix Windows console encoding
+sys.stdout.reconfigure(encoding='utf-8')
 
 # IP BOUNDARY: Bipartite Metacognitive Router (TAPO-DL P-Box Implementation)
 
