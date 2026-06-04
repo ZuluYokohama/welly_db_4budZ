@@ -25,6 +25,9 @@ def main():
     # zyp simulate
     subparsers.add_parser("simulate", help="Run the Hyperdeterministic DrillSoft Engine simulation (Phase 4)")
 
+    # zyp ai-review
+    subparsers.add_parser("ai-review", help="Execute local In-IDE AI Security Review via CodeRabbit CLI")
+
     args = parser.parse_args()
     workspace_root = Path(__file__).resolve().parent.parent.parent
 
@@ -47,9 +50,20 @@ def main():
         print(f"Booting DrillSoft Physics Engine & Bipartite Router...")
         env = os.environ.copy()
         env["PYTHONPATH"] = str(workspace_root / "src")
-        # We will write a small runner in scripts/run_simulation.py to handle the loop
         subprocess.run([sys.executable, "scripts/run_simulation.py"], cwd=workspace_root, env=env)
         
+    elif args.command == "ai-review":
+        print("Initializing AAA Studio AI Security Gate (CodeRabbit CLI)...")
+        try:
+            # Shift-Left Security: Run local AI review before push
+            subprocess.run(["coderabbit", "review"], cwd=workspace_root, check=True)
+            print("  [✓] Local AI Review Complete. OWASP & ZYP invariants intact.")
+        except FileNotFoundError:
+            print("  [!] CodeRabbit CLI not found in PATH.")
+            print("      Install it to enable In-IDE AI Enforcement: https://coderabbit.ai/docs")
+        except subprocess.CalledProcessError:
+            print("  [!] Local AI Review Failed. Check the diff and coderabbit.yaml rules.")
+            
     elif args.command == "ui":
         ui_path = workspace_root / "artifacts" / "CodeCube_App.html"
         print(f"Launching CodeCube Interface: {ui_path}")
