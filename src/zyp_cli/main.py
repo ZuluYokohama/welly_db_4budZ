@@ -22,6 +22,9 @@ def main():
     # zyp ui
     subparsers.add_parser("ui", help="Launch the CodeCube V0.1α Edge Dashboard")
 
+    # zyp simulate
+    subparsers.add_parser("simulate", help="Run the Hyperdeterministic DrillSoft Engine simulation (Phase 4)")
+
     args = parser.parse_args()
     workspace_root = Path(__file__).resolve().parent.parent.parent
 
@@ -39,6 +42,13 @@ def main():
         env = os.environ.copy()
         env["PYTHONPATH"] = str(workspace_root / "src")
         subprocess.run([sys.executable, "src/welly_db/domain_ingest.py"], cwd=workspace_root, env=env)
+        
+    elif args.command == "simulate":
+        print(f"Booting DrillSoft Physics Engine & Bipartite Router...")
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(workspace_root / "src")
+        # We will write a small runner in scripts/run_simulation.py to handle the loop
+        subprocess.run([sys.executable, "scripts/run_simulation.py"], cwd=workspace_root, env=env)
         
     elif args.command == "ui":
         ui_path = workspace_root / "artifacts" / "CodeCube_App.html"
